@@ -3,17 +3,25 @@ const express = require('express');
 const router = express.Router();
 const Listing = require('../models/listing');
 
-// GET all listings (index route)
+
 router.get('/', async (req, res) => {
   try {
-    // Make sure the 'listings' variable is properly initialized
-    const listings = await Listing.find();  // Initialize the 'listings' variable here
-    console.log(listings);  // Log the listings to the console
-    res.render('listings/index.ejs', { listings });  // Render the listings index page and pass listings to the view
+    const listings = await Listing.find();  
+    res.render('listings/index.ejs', { listings });  
   } catch (err) {
-    console.log(err);  // Log any errors that occur
+    console.log(err);  
     res.status(500).send('Error retrieving listings');
   }
 });
+
+
+router.get('/new', async (req, res) => {
+    try {
+    res.render('listings/new.ejs');   
+    } catch (error) {
+        console.log(err);  
+        res.status(500).send('Error retrieving form');   
+    }
+})
 
 module.exports = router;
